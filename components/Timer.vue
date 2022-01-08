@@ -1,10 +1,10 @@
 <template>
-	<div class='timer p-4 rounded border-2 border-gray-400 border-solid text-center'>
+	<div class='timer p-4 rounded border-2 border-gray-400 border-solid text-center flex flex-col justify-center'>
 		<div class="mb-2" v-if='title'>
-			<p class='text-2xl' @click='rename'>{{ title }}</p>
+			<p class='text-2xl cursor-pointer' @click='rename'>{{ title }}</p>
 		</div>
 		<div class="display mb-4">
-			<p class='text-6xl' @click='retime'>{{ display }}</p>
+			<p class='text-6xl cursor-pointer' @click='retime'>{{ display }}</p>
 		</div>
 		<div class="controls">
 			<button class='bg-green-600 hover:bg-green-700 text-white rounded p-2' type='button' @click='start' v-if='!isStarted'>Start</button>
@@ -83,7 +83,7 @@ export default {
 			// console.log(display)
 		},
 		rename() {
-			this.title = prompt('Enter a new title for this timer')
+			this.title = prompt('Enter a new title for this timer.')
 		},
 		countup() {
 			this.countingUp = true
@@ -92,7 +92,7 @@ export default {
 			this.countingUp = false
 		},
 		retime() {
-			let input = prompt('Enter the new time in seconds')
+			let input = prompt('Enter the new time in seconds.')
 			if (!Number.isNaN(Number(input))) {
 				this.totalSeconds = Number(input)
 				this.default = Number(input)

@@ -2,8 +2,8 @@
 	<div class='wrapper m-2'>
 		<div class='timers grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-2 mb-2'>
 			<Timer v-for="field in fields" :id="field.id" :key="field.id" @remove='removeTimer'/>
-			<div class='border-2 border-gray-300 border-dashed hover:border-gray-700 h-auto w-auto rounded flex items-center justify-center group' @click='addTimer'>
-				<p class='group-hover:text-gray-900 text-gray-500 text-lg my-10' >Add more timers</p>
+			<div class='border-2 border-gray-300 border-dashed hover:border-gray-700 h-auto w-auto rounded flex items-center justify-center group cursor-pointer' @click='addTimer'>
+				<p class='group-hover:text-gray-900 text-gray-500 text-lg my-10'>Add more timers</p>
 			</div>
 		</div>
 	</div>
