@@ -22,7 +22,10 @@ A simple yet flexible timer, as in, a timer with many features. Made with Nuxt.j
 - Click the title to change the title of the timer. (default is Timer)
 - Click the time to change the time of the timer. (default is 00:00:00).
 - To add a timer, click the dotted box.
-- To remove a timer, click the Remove button,
+- To remove a timer, click the Remove button.
+
+### Demonstration
+![](docs\demo.gif)
 
 ## Build Setup
 
