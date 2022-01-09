@@ -15,7 +15,7 @@
 				<client-only><Icon icon="clarity:play-solid" :inline="true" /></client-only>
 				Start
 			</button>
-			<button class='bg-yellow-600 hover:bg-yellow-700 text-white focus:ring-2 focus:ring-yellow-200 transition ease-in-out rounded p-2 text-sm font-semibold' type='button' @click='pause' v-if='isStarted'>
+			<button class='bg-yellow-600 hover:bg-yellow-700 text-white focus:ring-2 focus:ring-yellow-200 transition ease-in-out rounded p-2 text-sm font-semibold' type='button' @click='pause' v-else>
 				<client-only><Icon icon="clarity:pause-solid" :inline="true" /></client-only>
 				Pause
 			</button>
@@ -27,7 +27,7 @@
 				<client-only><Icon icon="clarity:plus-circle-solid" :inline="true" /></client-only>
 				Count Up
 			</button>
-			<button class='bg-blue-700 hover:bg-blue-800 text-white focus:ring-2 focus:ring-blue-200 transition ease-in-out rounded p-2 text-sm font-semibold' type='button' @click='countdown' v-if='countingUp'>
+			<button class='bg-blue-700 hover:bg-blue-800 text-white focus:ring-2 focus:ring-blue-200 transition ease-in-out rounded p-2 text-sm font-semibold' type='button' @click='countdown' v-else>
 				<client-only><Icon icon="clarity:minus-circle-solid" :inline="true" /></client-only>
 				Count Down
 			</button>
