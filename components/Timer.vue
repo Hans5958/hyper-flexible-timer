@@ -127,8 +127,14 @@ export default {
 			this.displayms = ("000" + this.ms).slice(-3)
 			// console.log(display)
 		},
-		rename() {
-			this.title = prompt('Enter a new title for this timer.')
+		async rename() {
+			let { value: title } = await this.$swal.fire({
+				title: 'Enter the new title for this timer.',
+				input: 'text',
+				inputValue: this.title,
+				showCancelButton: true
+			})
+			this.title = title
 		},
 		countup() {
 			this.countingUp = true
@@ -144,13 +150,26 @@ export default {
 			this.targetTimestamp = nowTimestamp + difference
 			this.updateDisplay()
 		},
-		retime() {
-			let input = prompt('Enter the new time in seconds.')
-			if (!Number.isNaN(Number(input)) && input > -1 ) {
-				this.default = Number(input) * 1000
-				this.updateDisplay(this.default)
-				if (this.pausedDifference) this.pausedDifference += this.default
-			}
+		async retime() {
+			let { value: input } = await this.$swal.fire({
+				title: 'Enter the new time in seconds',
+				input: 'text',
+				inputValue: this.default / 1000,
+				showCancelButton: true,
+				inputValidator: (input) => {
+					if (Number.isNaN(Number(input))) {
+						return 'Enter a valid value!'
+					} else if (input < 0) {
+						return 'Enter a positive number!'
+					}
+				}
+			})
+
+			if (!input) return
+
+			this.default = Number(input) * 1000
+			this.updateDisplay(this.default)
+			if (this.pausedDifference) this.pausedDifference += this.default
 		},
 	},
 	components: {
