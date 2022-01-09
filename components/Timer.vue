@@ -1,5 +1,5 @@
 <template>
-	<div class='timer p-4 rounded border-2 border-gray-400 border-solid text-center flex flex-col justify-center'>
+	<div class='timer p-4 rounded shadow-lg hover:shadow-2xl transition ease-in-out text-center flex flex-col justify-center bg-white'>
 		<div class="mb-2" v-if='title'>
 			<p class='text-2xl cursor-pointer' @click='rename'>{{ title }}</p>
 		</div>
@@ -7,27 +7,27 @@
 			<p class='text-6xl cursor-pointer' @click='retime'>{{ display }}<span class='text-xl text-gray-500'>.{{ displayms }}</span></p>
 		</div>
 		<div class="controls">
-			<button class='bg-green-600 hover:bg-green-700 text-white rounded p-2' type='button' @click='start' v-if='!isStarted'>
+			<button class='bg-green-600 hover:bg-green-700 text-white focus:ring-2 focus:ring-green-200 transition ease-in-out rounded p-2 text-sm font-semibold' type='button' @click='start' v-if='!isStarted'>
 				<client-only><Icon icon="clarity:play-solid" :inline="true" /></client-only>
 				Start
 			</button>
-			<button class='bg-yellow-600 hover:bg-yellow-700 text-white rounded p-2' type='button' @click='pause' v-if='isStarted'>
+			<button class='bg-yellow-600 hover:bg-yellow-700 text-white focus:ring-2 focus:ring-yellow-200 transition ease-in-out rounded p-2 text-sm font-semibold' type='button' @click='pause' v-if='isStarted'>
 				<client-only><Icon icon="clarity:pause-solid" :inline="true" /></client-only>
 				Pause
 			</button>
-			<button class='bg-red-600 hover:bg-red-700 text-white rounded p-2' type='button' @click='stop'>
+			<button class='bg-red-600 hover:bg-red-700 text-white focus:ring-2 focus:ring-red-200 transition ease-in-out rounded p-2 text-sm font-semibold' type='button' @click='stop'>
 				<client-only><Icon icon="clarity:stop-solid" :inline="true" /></client-only>
 				Stop
 			</button>
-			<button class='bg-blue-700 hover:bg-blue-800 text-white rounded p-2' type='button' @click='countup' v-if='!countingUp'>
+			<button class='bg-blue-700 hover:bg-blue-800 text-white focus:ring-2 focus:ring-blue-200 transition ease-in-out rounded p-2 text-sm font-semibold' type='button' @click='countup' v-if='!countingUp'>
 				<client-only><Icon icon="clarity:plus-circle-solid" :inline="true" /></client-only>
 				Count Up
 			</button>
-			<button class='bg-blue-700 hover:bg-blue-800 text-white rounded p-2' type='button' @click='countdown' v-if='countingUp'>
+			<button class='bg-blue-700 hover:bg-blue-800 text-white focus:ring-2 focus:ring-blue-200 transition ease-in-out rounded p-2 text-sm font-semibold' type='button' @click='countdown' v-if='countingUp'>
 				<client-only><Icon icon="clarity:minus-circle-solid" :inline="true" /></client-only>
 				Count Down
 			</button>
-			<button class='bg-red-700 hover:bg-red-800 text-white rounded p-2' type='button' @click='remove'>
+			<button class='bg-red-700 hover:bg-red-800 text-white focus:ring-2 focus:ring-red-200 transition ease-in-out rounded p-2 text-sm font-semibold' type='button' @click='remove'>
 				<client-only><Icon icon="clarity:trash-solid" :inline="true" /></client-only>
 				Remove
 			</button>	
@@ -50,19 +50,19 @@ export default {
 	],
 	data() {
 		return {
+			title: 'Timer',
 			display: '00:00:00',
+			displayms: '000',
 			d: 0,
 			h: 0,
 			m: 0,
 			s: 0,
-			isStarted: false,
-			interval: () => {},
-			title: 'Timer',
-			countingUp: true,
 			default: 0,
+			isStarted: false,
+			countingUp: true,
 			targetTimestamp: 0,
 			pausedDifference: 0,
-			displayms: '000'
+			interval: () => {},
 		}
 	},
 	methods: {
