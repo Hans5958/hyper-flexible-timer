@@ -1,6 +1,6 @@
 # The Hyper Flexible Clock
 
-A simple yet flexible timer, as in, a timer with many features. Made with Nuxt.js/Vue.
+A simple yet flexible timer/stopwatch. Made with Nuxt.js/Vue.
 
 ## Description
 
@@ -9,8 +9,8 @@ A simple yet flexible timer, as in, a timer with many features. Made with Nuxt.j
 - Start, stop, and reset buttons.
 - Ability to add, remove, and run multiple timers
 - Changable time and title
-- Switching betwwen counting up and counting down
-- Responsive interface (works on mobile, tablet, computer, etc)
+- Switching betwwen counting up (as a stopwatch) and counting down (as a timer)
+- A nice and responsive interface (works on mobile, tablet, computer, etc)
 <!-- - More to come! -->
 
 ### Instructions
