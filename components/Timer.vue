@@ -15,7 +15,7 @@
 				<client-only><Icon icon="clarity:pause-solid" :inline="true" /></client-only>
 				Pause
 			</button>
-			<button class='bg-red-600 hover:bg-red-700 text-white focus:ring-2 focus:ring-red-200 transition ease-in-out rounded p-2 text-sm font-semibold' type='button' @click='stop'>
+			<button class='bg-red-600 hover:bg-red-700 text-white focus:ring-2 focus:ring-red-200 transition ease-in-out rounded p-2 text-sm font-semibold' type='button' @click='stop' v-if='!isStopped'>
 				<client-only><Icon icon="clarity:stop-solid" :inline="true" /></client-only>
 				Stop
 			</button>
@@ -59,6 +59,7 @@ export default {
 			s: 0,
 			default: 0,
 			isStarted: false,
+			isStopped: true,
 			countingUp: true,
 			targetTimestamp: 0,
 			pausedDifference: 0,
@@ -77,11 +78,12 @@ export default {
 			else this.targetTimestamp = nowTimestamp + targetTime
 			this.interval = setInterval(() => {
 				if (!this.countingUp && this.targetTimestamp - Date.now() < 1) {
-					this.pause()
+					this.stop()
 					this.updateDisplay(0)
 				} else this.updateDisplay()
 			}, 10)
 			this.isStarted = true
+			this.isStopped = false
 		},
 		pause() {
 			let nowTimestamp = Date.now()
@@ -94,6 +96,7 @@ export default {
 			if (this.isStarted) this.pause()
 			this.reset()
 			this.updateDisplay()
+			this.isStopped = true
 		},
 		reset() {
 			let nowTimestamp = Date.now()
@@ -132,12 +135,14 @@ export default {
 			let nowTimestamp = Date.now()
 			let difference = Math.abs(this.targetTimestamp - nowTimestamp)
 			this.targetTimestamp = nowTimestamp - difference
+			this.updateDisplay()
 		},
 		countdown() {
 			this.countingUp = false
 			let nowTimestamp = Date.now()
 			let difference = Math.abs(this.targetTimestamp - nowTimestamp)
 			this.targetTimestamp = nowTimestamp + difference
+			this.updateDisplay()
 		},
 		retime() {
 			let input = prompt('Enter the new time in seconds.')
