@@ -1,14 +1,20 @@
 <template>
-	<div class='timer p-4 rounded shadow-lg hover:shadow-2xl transition ease-in-out text-center flex flex-col justify-center bg-white relative'>
-		<div class='w-full rounded-t'>
-			<div class='h-2 bg-black opacity-25 absolute top-0 left-0' :style="{ width: percentage * 100 + '%' }" v-if='!countingUp'>
+	<div class='timer p-4 rounded shadow-lg hover:shadow-2xl transition ease-in-out text-center flex flex-col justify-center bg-white relative overflow-hidden'>
+		<div class='w-full rounded-t absolute top-0 left-0'>
+			<div class='h-2 bg-black opacity-25' :style="{ width: percentage * 100 + '%' }" v-if='!countingUp'>
 			</div>
 		</div>
 		<div class="mb-2" v-if='title'>
-			<p class='text-2xl cursor-pointer' @click='rename'>{{ title }}</p>
+			<p class='text-2xl cursor-pointer group' @click='rename'>
+				{{ title }}
+				<span class='text-base hidden group-hover:inline'><client-only><Icon icon="clarity:pencil-solid" :inline="true" /></client-only></span>
+			</p>
 		</div>
 		<div class="display mb-4">
-			<p class='text-6xl cursor-pointer' @click='retime'>{{ display }}<span class='text-xl text-gray-500'>.{{ displayms }}</span></p>
+			<p class='text-xl cursor-pointer group' @click='retime'>
+				<span class='text-6xl'>{{ display }}</span><span class='text-xl text-gray-500'>.{{ displayms }}</span>
+				<span class='text-xl hidden group-hover:inline'><client-only><Icon icon="clarity:pencil-solid" :inline="true" /></client-only></span>
+			</p>
 		</div>
 		<div class="controls">
 			<button class='bg-green-600 hover:bg-green-700 text-white focus:ring-2 focus:ring-green-200 transition ease-in-out rounded p-2 text-sm font-semibold' type='button' @click='start' v-if='!isStarted'>
@@ -130,9 +136,8 @@ export default {
 			if (this.d) display = `${(this.d+'').length === 1 ? 0 : ''}${this.d}:` + display
 			this.display = display
 			this.displayms = ("000" + this.ms).slice(-3)
-			if (!this.countingUp && !this.defaultSeconds) {
+			if (!this.countingUp && this.defaultSeconds) {
 				this.percentage = s * 1000 / this.defaultSeconds
-				if (this.percentage > 1) this.percentage = 1
 			}
 			// console.log(display)
 		},
