@@ -143,7 +143,7 @@ export default {
 				inputValue: this.title,
 				showCancelButton: true
 			})
-			this.title = title
+			if (title !== undefined) this.title = title
 		},
 		countup() {
 			this.countingUp = true
