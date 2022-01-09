@@ -1,5 +1,9 @@
 <template>
-	<div class='timer p-4 rounded shadow-lg hover:shadow-2xl transition ease-in-out text-center flex flex-col justify-center bg-white'>
+	<div class='timer p-4 rounded shadow-lg hover:shadow-2xl transition ease-in-out text-center flex flex-col justify-center bg-white relative'>
+		<div class='w-full rounded-t'>
+			<div class='h-2 bg-black opacity-25 absolute top-0 left-0' :style="{ width: percentage * 100 + '%' }" v-if='!countingUp'>
+			</div>
+		</div>
 		<div class="mb-2" v-if='title'>
 			<p class='text-2xl cursor-pointer' @click='rename'>{{ title }}</p>
 		</div>
@@ -57,7 +61,8 @@ export default {
 			h: 0,
 			m: 0,
 			s: 0,
-			default: 0,
+			percentage: 0,
+			defaultSeconds: 0,
 			isStarted: false,
 			isStopped: true,
 			countingUp: true,
@@ -69,7 +74,7 @@ export default {
 	methods: {
 		start() {
 			let nowTimestamp = Date.now()
-			let targetTime = this.default
+			let targetTime = this.defaultSeconds
 			if (this.pausedDifference) {
 				targetTime = this.pausedDifference
 				this.pausedDifference = 0
@@ -100,8 +105,8 @@ export default {
 		},
 		reset() {
 			let nowTimestamp = Date.now()
-			if (this.countingUp) this.targetTimestamp = nowTimestamp - this.default
-			else this.targetTimestamp = nowTimestamp + this.default
+			if (this.countingUp) this.targetTimestamp = nowTimestamp - this.defaultSeconds
+			else this.targetTimestamp = nowTimestamp + this.defaultSeconds
 			this.pausedDifference = 0
 		},
 		remove() {
@@ -125,6 +130,10 @@ export default {
 			if (this.d) display = `${(this.d+'').length === 1 ? 0 : ''}${this.d}:` + display
 			this.display = display
 			this.displayms = ("000" + this.ms).slice(-3)
+			if (!this.countingUp && !this.defaultSeconds) {
+				this.percentage = s * 1000 / this.defaultSeconds
+				if (this.percentage > 1) this.percentage = 1
+			}
 			// console.log(display)
 		},
 		async rename() {
@@ -141,20 +150,21 @@ export default {
 			let nowTimestamp = Date.now()
 			let difference = Math.abs(this.targetTimestamp - nowTimestamp)
 			this.targetTimestamp = nowTimestamp - difference
-			this.updateDisplay()
+			// this.updateDisplay()
 		},
 		countdown() {
+			this.percentage = 0
 			this.countingUp = false
 			let nowTimestamp = Date.now()
 			let difference = Math.abs(this.targetTimestamp - nowTimestamp)
 			this.targetTimestamp = nowTimestamp + difference
-			this.updateDisplay()
+			// this.updateDisplay()
 		},
 		async retime() {
 			let { value: input } = await this.$swal.fire({
 				title: 'Enter the new time in seconds',
 				input: 'text',
-				inputValue: this.default / 1000,
+				inputValue: this.defaultSeconds / 1000,
 				showCancelButton: true,
 				inputValidator: (input) => {
 					if (Number.isNaN(Number(input))) {
@@ -167,9 +177,9 @@ export default {
 
 			if (!input) return
 
-			this.default = Number(input) * 1000
-			this.updateDisplay(this.default)
-			if (this.pausedDifference) this.pausedDifference += this.default
+			this.defaultSeconds = Number(input) * 1000
+			this.updateDisplay(this.defaultSeconds)
+			if (this.pausedDifference) this.pausedDifference += this.defaultSeconds
 		},
 	},
 	components: {
