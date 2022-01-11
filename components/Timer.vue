@@ -143,7 +143,7 @@ export default {
 		},
 		async rename() {
 			let { value: title } = await this.$swal.fire({
-				title: 'Enter the new title for this timer.',
+				title: 'Enter the new title',
 				input: 'text',
 				inputValue: this.title,
 				showCancelButton: true
