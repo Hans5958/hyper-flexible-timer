@@ -1,4 +1,4 @@
-# The Hyper Flexible Clock
+# The Hyper Flexible Timer
 
 Sebuah pewaktu sederhana, namun fleksibel. Dibuat dengan Nuxt.js/Vue
 

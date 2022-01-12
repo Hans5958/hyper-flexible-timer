@@ -17,7 +17,7 @@
 export default {
 	name: 'IndexPage',
 	head: {
-		title: 'The Hyper Flexible Clock',
+		title: 'The Hyper Flexible Timer',
 		meta: [
 		{ charset: 'utf-8' },
 		{ name: 'viewport', content: 'width=device-width, initial-scale=1' },

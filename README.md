@@ -1,4 +1,4 @@
-# The Hyper Flexible Clock
+# The Hyper Flexible Timer
 
 A simple yet flexible timer/stopwatch. Made with Nuxt.js/Vue.
 
