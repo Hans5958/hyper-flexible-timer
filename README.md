@@ -6,7 +6,7 @@ A simple yet flexible timer/stopwatch. Made with Nuxt.js/Vue.
 
 ### Features
 
-- Start, stop, and reset buttons.
+- Start, pause, and stop buttons
 - Ability to add, remove, and run multiple timers
 - Changable time and title
 - Switching betwwen counting up (as a stopwatch) and counting down (as a timer)

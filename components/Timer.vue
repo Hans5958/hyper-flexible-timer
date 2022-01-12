@@ -116,9 +116,11 @@ export default {
 			this.pausedDifference = 0
 		},
 		remove() {
+			// Remove the timer from existence
 			this.$emit('remove', this.id)
 		},
 		updateDisplay(targetTime) {
+			// Update both display (hh:mm:ss and miliseconds)
 			let nowTimestamp = Date.now()
 			if (targetTime !== undefined) {
 				if (this.countingUp) this.targetTimestamp = nowTimestamp - targetTime
@@ -142,6 +144,7 @@ export default {
 			// console.log(display)
 		},
 		async rename() {
+			// To change the title
 			let { value: title } = await this.$swal.fire({
 				title: 'Enter the new title',
 				input: 'text',
@@ -151,6 +154,7 @@ export default {
 			if (title !== undefined) this.title = title
 		},
 		countup() {
+			// Switch to counting up
 			this.countingUp = true
 			let nowTimestamp = Date.now()
 			let difference = Math.abs(this.targetTimestamp - nowTimestamp)
@@ -158,6 +162,7 @@ export default {
 			// this.updateDisplay()
 		},
 		countdown() {
+			// Switch to counting down
 			this.percentage = 0
 			this.countingUp = false
 			let nowTimestamp = Date.now()
@@ -166,6 +171,7 @@ export default {
 			// this.updateDisplay()
 		},
 		async retime() {
+			// To change the time
 			let { value: input } = await this.$swal.fire({
 				title: 'Enter the new time in seconds',
 				input: 'text',
