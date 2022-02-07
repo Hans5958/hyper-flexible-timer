@@ -1,5 +1,5 @@
 <template>
-	<div class='timer p-4 rounded shadow-lg hover:shadow-2xl transition ease-in-out text-center flex flex-col justify-center bg-white relative overflow-hidden'>
+	<div class='timer p-4 rounded shadow-lg hover:shadow-2xl transition ease-in-out text-center flex flex-col justify-center bg-white relative overflow-hidden' @click='globalClick'>
 		<div class='w-full rounded-t absolute top-0 left-0'>
 			<div class='h-2 bg-black opacity-25' :style="{ width: percentage * 100 + '%' }" v-if='!countingUp'>
 			</div>
@@ -11,7 +11,7 @@
 			</p>
 		</div>
 		<div class="display mb-4">
-			<p class='text-xl cursor-pointer group' @click='retime'>
+			<p class='text-xl cursor-pointer group' :class="{ 'timer-blinking': isBlinking }" @click='retime'>
 				<span class='text-6xl'>{{ display }}</span><span class='text-xl text-gray-500'>.{{ displayms }}</span>
 				<span class='text-xl hidden group-hover:inline'><client-only><Icon icon="clarity:pencil-solid" :inline="true" /></client-only></span>
 			</p>
@@ -52,7 +52,28 @@
 </style>
 
 <script>
-import { Icon } from '@iconify/vue2';
+import { Icon } from '@iconify/vue2'
+
+const timeUnitSeconds = [
+	1,
+	60,
+	60 * 60,
+	24 * 60 * 60,
+]
+
+const convertTimeFromString = (string = '') => {
+	const timeUnits = string.split(':').reverse()
+	let seconds = 0
+	let isNotNaN = false
+	timeUnits.forEach((unit, index) => {
+		if (timeUnitSeconds[index] && !isNaN(unit)) {
+			seconds += unit * timeUnitSeconds[index]
+			isNotNaN = true
+		}
+	})
+	if (isNotNaN) return seconds
+	else return NaN
+}
 
 export default {
 	props: [
@@ -74,6 +95,7 @@ export default {
 			countingUp: true,
 			targetTimestamp: 0,
 			pausedDifference: 0,
+			isBlinking: false,
 			interval: () => {},
 		}
 	},
@@ -91,10 +113,14 @@ export default {
 				if (!this.countingUp && this.targetTimestamp - Date.now() < 1) {
 					this.stop()
 					this.updateDisplay(0)
+					this.isBlinking = true
+					console.log(this.isBlinking)
 				} else this.updateDisplay()
 			}, 10)
 			this.isStarted = true
 			this.isStopped = false
+			this.isBlinking = false
+			console.log(this.isBlinking)
 		},
 		pause() {
 			let nowTimestamp = Date.now()
@@ -132,10 +158,10 @@ export default {
 			this.m = Math.floor(s/60) % 60
 			this.h = Math.floor(s/3600) % 24
 			this.d = Math.floor(s/86400)
-			let display = `${(this.s+'').length === 1 ? 0 : ''}${this.s}`
-			display = `${(this.m+'').length === 1 ? 0 : ''}${this.m}:` + display
-			display = `${(this.h+'').length === 1 ? 0 : ''}${this.h}:` + display
-			if (this.d) display = `${(this.d+'').length === 1 ? 0 : ''}${this.d}:` + display
+			let display = this.s.toString().padStart(2, '0')
+			display = this.m.toString().padStart(2, '0') + ':' + display
+			display = this.h.toString().padStart(2, '0') + ':' + display
+			if (this.d) display = this.d.toString().padStart(2, '0') + ':' + display
 			this.display = display
 			this.displayms = ("000" + this.ms).slice(-3)
 			if (!this.countingUp && this.defaultSeconds) {
@@ -173,14 +199,16 @@ export default {
 		async retime() {
 			// To change the time
 			let { value: input } = await this.$swal.fire({
-				title: 'Enter the new time in seconds',
+				title: 'Enter the new time',
 				input: 'text',
 				inputValue: this.defaultSeconds / 1000,
 				showCancelButton: true,
 				inputValidator: (input) => {
-					if (Number.isNaN(Number(input))) {
+					let inputSecs = convertTimeFromString(input)
+					console.log(inputSecs)
+					if (Number.isNaN(Number(inputSecs))) {
 						return 'Enter a valid value!'
-					} else if (input < 0) {
+					} else if (inputSecs < 0) {
 						return 'Enter a positive number!'
 					}
 				}
@@ -188,13 +216,42 @@ export default {
 
 			if (!input) return
 
-			this.defaultSeconds = Number(input) * 1000
+			this.defaultSeconds = convertTimeFromString(input) * 1000
 			this.updateDisplay(this.defaultSeconds)
 			if (this.pausedDifference) this.pausedDifference += this.defaultSeconds
 		},
+		globalClick() {
+			this.isBlinking = false
+		}
 	},
 	components: {
 		Icon,
 	},
 }
 </script>
+
+<style>
+
+.timer-blinking {
+	animation-duration: 1000ms;
+	animation-name: blink;
+	animation-iteration-count: infinite;
+	animation-direction: normal;
+}
+
+@keyframes blink {
+	from {
+		opacity: 1;
+	}
+	49% {
+		opacity: 1;
+	}
+	51% {
+		opacity: 0.25
+	}
+	to {
+		opacity: 0.25;
+	}
+}
+
+</style>
