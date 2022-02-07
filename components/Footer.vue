@@ -5,7 +5,7 @@
 		</div>
 		<div class='text-right text-sm'>
 			<p>
-				<a href='/about' target='_blank' class='text-sky-600 hover:underline'>About</a>
+				<a href='about' target='_blank' class='text-sky-600 hover:underline'>About</a>
 				–
 				<a href='https://github.com/Hans5958/hyper-flexible-timer' target='_blank' class='text-sky-600 hover:underline'>Source Code</a>
 			</p>

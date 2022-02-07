@@ -11,7 +11,7 @@
 				<li>Switching between counting up (as a stopwatch) and counting down (as a timer)</li>
 				<li>A nice and responsive interface (works on mobile, tablet, computer, etc)</li>
 			</ul>
-			<p class='text-right text-sky-600 hover:underline'><a href='/'>↩ go back</a></p>
+			<p class='text-right text-sky-600 hover:underline'><a href='../'>↩ go back</a></p>
 		</div>
 	</main>
 </template>
