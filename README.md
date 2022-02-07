@@ -1,6 +1,8 @@
 # The Hyper Flexible Timer
 
-A simple yet flexible timer/stopwatch. Made with Nuxt.js/Vue.
+[![Deployment status](https://img.shields.io/github/workflow/status/Hans5958/hyper-flexible-timer/Site%20Deployment?label=deploy&style=flat-square)](https://github.com/Hans5958/hyper-flexible-timer/actions/workflows/deploy-site.yml) ![Current version](https://img.shields.io/github/v/tag/Hans5958/hyper-flexible-timer?label=version&style=flat-square) [![Demo is up on hans5958.github.io/hyper-flexible-timer](https://img.shields.io/badge/demo-hans5958.github.io/hyper&#8209;flexible&#8209;timer-black?style=flat-square)](https://hans5958.github.io/hyper-flexible-timer)
+
+The Hyper Flexible Clock is a timer/stopwatch hybrid that focuses on flexibility and simplicity. Build with Nuxt.js, a Vue framework, it is also a showcase of my capabilities on the front-end development.
 
 ## Description
 
@@ -23,9 +25,6 @@ A simple yet flexible timer/stopwatch. Made with Nuxt.js/Vue.
 - Click the time to change the time of the timer. (default is 00:00:00).
 - To add a timer, click the dotted box.
 - To remove a timer, click the Remove button.
-
-### Demonstration
-![](docs\demo.gif)
 
 ## Build Setup
 
