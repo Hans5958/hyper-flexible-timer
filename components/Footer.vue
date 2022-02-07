@@ -7,7 +7,7 @@
 			<p>
 				<a href='about' target='_blank' class='text-sky-600 hover:underline'>About</a>
 				–
-				<a href='https://github.com/Hans5958/hyper-flexible-timer' target='_blank' class='text-sky-600 hover:underline'>Source Code</a>
+				<a href='https://github.com/Hans5958/hyper-flexible-timer' target='_blank' class='text-sky-600 hover:underline'>Repository</a>
 			</p>
 			<p>Version {{ $config.appVersion }} – Copyright © 2021, Hans5958</p>
 		</div>
