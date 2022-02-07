@@ -58,5 +58,9 @@ export default {
 
   publicRuntimeConfig: {
     appVersion: pkg.version,
+  },
+
+  router: {
+    base: '/hyper-flexible-timer/'
   }
 }
