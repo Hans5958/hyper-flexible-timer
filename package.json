@@ -1,7 +1,15 @@
 {
   "name": "hyper-flexible-timer",
-  "version": "1.0.0",
-  "private": true,
+  "version": "2.0.2",
+  "author": {
+    "name": "Hans5958",
+    "url": "https://github.com/Hans5958"
+  },
+  "repository": {
+    "repository": "github:Hans5958/hyper-flexible-timer"
+  },
+  "license": "MIT",
+  "homepage": "https://hans5958.github.io/hyper-flexible-timer",
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
@@ -18,8 +26,10 @@
   },
   "devDependencies": {
     "@iconify/vue2": "^1.1.1",
-    "@nuxtjs/tailwindcss": "^4.2.1",
-    "postcss": "^8.4.4",
+    "@nuxt/postcss8": "^1.1.3",
+    "autoprefixer": "^10.4.2",
+    "postcss": "^8.4.6",
+    "tailwindcss": "^3.0.18",
     "vue-sweetalert2": "^5.0.2"
   }
 }
