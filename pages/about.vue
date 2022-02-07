@@ -1,0 +1,36 @@
+<template>
+	<main class='bg-gradient-to-r from-cyan-500 to-blue-500 h-full min-h-screen w-full p-4 flex justify-center align-center'>
+		<div class='wrapper p-6 bg-white shadow-lg hover:shadow-2xl max-w-screen-md m-auto rounded'>
+			<h1 class='text-4xl mb-2 font-semibold'>About</h1>
+			<p class='mb-2'>The Hyper Flexible Clock is a timer/stopwatch hybrid that focuses on flexibility and simplicity. Build with Nuxt.js, a Vue framework, it is also a showcase of my capabilities on the front-end development.</p>
+			<h2 class='text-xl mt-2 mb-2 font-semibold'>Features</h2>
+			<ul class='list-disc ml-4'>
+				<li>Start, pause, and stop buttons</li>
+				<li>Ability to add, remove, and run multiple timers</li>
+				<li>Changable time and title</li>
+				<li>Switching between counting up (as a stopwatch) and counting down (as a timer)</li>
+				<li>A nice and responsive interface (works on mobile, tablet, computer, etc)</li>
+			</ul>
+			<p class='text-right text-sky-600 hover:underline'><a href='/'>↩ go back</a></p>
+		</div>
+	</main>
+</template>
+
+<script>
+export default {
+	name: 'AboutPage',
+	head: {
+		title: 'About The Hyper Flexible Timer',
+		meta: [
+		{ charset: 'utf-8' },
+		{ name: 'viewport', content: 'width=device-width, initial-scale=1' },
+		{
+			hid: 'description',
+			name: 'description',
+			content: 'A simple yet flexible timer/stopwatch. Made with Nuxt.js/Vue.'
+		}
+		],
+		link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+	},
+}
+</script>

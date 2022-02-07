@@ -1,6 +1,6 @@
 <template>
-	<main class='bg-gradient-to-r from-cyan-500 to-blue-500 h-full min-h-screen w-full'>
-		<div class='wrapper p-2 2xl:p-4'>
+	<main class='bg-gradient-to-r from-cyan-500 to-blue-500 h-full min-h-screen w-full flex flex-col'>
+		<div class='wrapper p-2 2xl:p-4 grow'>
 			<div class='timers grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-2 2xl:gap-4 mb-2'>
 				<Timer v-for="field in fields" :id="field.id" :key="field.id" @remove='removeTimer'/>
 				<div class='bg-white p-2 h-auto w-auto rounded group cursor-pointer hover:shadow-2xl transition ease-in-out' @click='addTimer'>
@@ -10,6 +10,7 @@
 				</div>
 			</div>
 		</div>
+		<Footer />
 	</main>
 </template>
 
