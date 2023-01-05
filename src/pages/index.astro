@@ -1,0 +1,15 @@
+---
+import Footer from "../components/Footer.vue"
+import Index from "../components/Index.vue"
+import Main from "../layout/Main.astro";
+---
+
+<Main
+	title="The Hyper Flexible Timer"
+	description="A simple yet flexible timer/stopwatch. Made with Vue 3 and Astro."
+>
+	<main class='bg-gradient-to-r from-cyan-500 to-blue-500 h-full min-h-screen w-full flex flex-col'>
+		<Index client:load />
+		<Footer client:idle />
+	</main>	
+</Main>
