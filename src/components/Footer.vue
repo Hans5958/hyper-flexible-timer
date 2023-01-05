@@ -18,10 +18,3 @@
 import { Icon } from '@iconify/vue'
 import { version } from '../vars'; 
 </script>
-
-<style>
-iconify-icon[inline=true] {
-	width: 1em;
-	height: 1em
-}
-</style>
