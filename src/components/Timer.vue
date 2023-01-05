@@ -4,15 +4,15 @@
 			<div class='h-2 bg-black opacity-25' :style="{ width: percentage * 100 + '%' }" v-if='!countingUp'>
 			</div>
 		</div>
-		<div class="mb-2" v-if='titleDisplay'>
+		<div class="mb-2" v-if='displayTitle'>
 			<p class='text-2xl cursor-pointer group' @click='rename'>
-				{{ titleDisplay }}
+				{{ displayTitle }}
 				<span class='text-base hidden group-hover:inline'><Icon icon="clarity:pencil-solid" :inline="true" /></span>
 			</p>
 		</div>
 		<div class="display mb-4">
 			<p class='text-xl cursor-pointer group' :class="{ 'timer-blinking': isBlinking }" @click='retime'>
-				<span class='text-6xl'>{{ display }}</span><span class='text-xl text-gray-500'>.{{ displayms }}</span>
+				<span class='text-6xl'>{{ display }}</span><span class='text-xl text-gray-500'>.{{ displayMs }}</span>
 				<span class='text-xl hidden group-hover:inline ml-1'><Icon icon="clarity:pencil-solid" :inline="true" /></span>
 			</p>
 		</div>
@@ -81,14 +81,10 @@ const convertTimeFromString = (string = '') => {
 
 const props = defineProps(['id'])
 
-let titleDisplay = ref('Timer'),
+let displayTitle = ref('Timer'),
 	display = ref('00:00:00'),
-	displayms = ref('000'),
-	dDisplay = 0,
-	hDisplay = 0,
-	mDisplay = 0,
-	sDisplay = 0,
-	percentage = 0,
+	displayMs = ref('000'),
+	percentage = ref(0),
 	defaultSeconds = 0,
 	isStarted = false,
 	isStopped = true,
@@ -156,19 +152,19 @@ function updateDisplay(targetTime) {
 		else targetTimestamp = nowTimestamp + targetTime
 	}
 	const s = Math.abs(Date.now() - targetTimestamp) / 1000
-	const msDisplay = Math.floor((s % 1) * 1000)
-	sDisplay = Math.floor(s % 60)
-	mDisplay = Math.floor(s/60) % 60
-	hDisplay = Math.floor(s/3600) % 24
-	dDisplay = Math.floor(s/86400)
-	let displayTemp = sDisplay.toString().padStart(2, '0')
-	displayTemp = mDisplay.toString().padStart(2, '0') + ':' + displayTemp
-	displayTemp = hDisplay.toString().padStart(2, '0') + ':' + displayTemp
-	if (dDisplay) displayTemp = dDisplay.toString().padStart(2, '0') + ':' + displayTemp
+	const displayMs = Math.floor((s % 1) * 1000)
+	const displayS = Math.floor(s % 60)
+	const displayM = Math.floor(s/60) % 60
+	const displayH = Math.floor(s/3600) % 24
+	const displayD = Math.floor(s/86400)
+	let displayTemp = displayS.toString().padStart(2, '0')
+	displayTemp = displayM.toString().padStart(2, '0') + ':' + displayTemp
+	displayTemp = displayH.toString().padStart(2, '0') + ':' + displayTemp
+	if (displayD) displayTemp = displayD.toString().padStart(2, '0') + ':' + displayTemp
 	display.value = displayTemp
-	displayms.value = ("000" + msDisplay).slice(-3)
+	displayMs.value = ("000" + displayMs).slice(-3)
 	if (!countingUp && defaultSeconds) {
-		percentage = s * 1000 / defaultSeconds
+		percentage.value = s * 1000 / defaultSeconds
 	}
 	// console.log(display)
 }
@@ -178,10 +174,10 @@ async function rename() {
 	let { value: title } = await Swal.fire({
 		title: 'Enter the new title',
 		input: 'text',
-		inputValue: titleDisplay.value,
+		inputValue: displayTitle.value,
 		showCancelButton: true
 	})
-	if (title !== undefined) titleDisplay.value = title
+	if (title !== undefined) displayTitle.value = title
 }
 
 function countup() {
