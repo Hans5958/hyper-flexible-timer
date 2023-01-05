@@ -17,6 +17,7 @@ concurrency:
 
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -25,6 +26,7 @@ jobs:
         uses: withastro/action@v0
 
   deploy:
+    name: Deployment
     needs: build
     runs-on: ubuntu-latest
     environment:
