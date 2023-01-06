@@ -33,7 +33,7 @@
 				<Icon icon="clarity:plus-circle-solid" :inline="true" />
 				Count Up
 			</button>
-			<button class='bg-blue-700 hover:bg-blue-800 text-white focus:ring-2 focus:ring-blue-200 transition ease-in-out rounded p-2 text-sm font-semibold mr-1' type='button' @click='countdown' v-else>
+			<button class='bg-blue-700 hover:bg-blue-800 text-white focus:ring-2 focus:ring-blue-200 transition ease-in-out rounded p-2 text-sm font-semibold mr-1 disabled:bg-blue-700 disabled:opacity-50' type='button' @click='countdown' v-else :disabled="isStopped && defaultSeconds === 0">
 				<Icon icon="clarity:minus-circle-solid" :inline="true" />
 				Count Down
 			</button>
@@ -88,7 +88,7 @@ let displayTitle = ref('Timer'),
 	defaultSeconds = 0,
 	isStarted = false,
 	isStopped = true,
-	countingUp = true,
+	countingUp = ref(true),
 	targetTimestamp = 0,
 	pausedDifference = 0,
 	isBlinking = false,
@@ -101,20 +101,19 @@ function start() {
 		targetTime = pausedDifference
 		pausedDifference = 0
 	}
-	if (countingUp) targetTimestamp = nowTimestamp - targetTime
+	if (countingUp.value) targetTimestamp = nowTimestamp - targetTime
 	else targetTimestamp = nowTimestamp + targetTime
 	interval = setInterval(() => {
-		if (!countingUp && targetTimestamp - Date.now() < 1) {
+		if (!countingUp.value && targetTimestamp - Date.now() < 1) {
 			stop()
 			updateDisplay(0)
 			isBlinking = true
-			console.log(isBlinking)
+			if (defaultSeconds === 0) countingUp.value = true
 		} else updateDisplay()
 	}, 10)
 	isStarted = true
 	isStopped = false
 	isBlinking = false
-	console.log(isBlinking)
 }
 
 function pause() {
@@ -134,7 +133,7 @@ function stop() {
 
 function reset() {
 	let nowTimestamp = Date.now()
-	if (countingUp) targetTimestamp = nowTimestamp - defaultSeconds
+	if (countingUp.value) targetTimestamp = nowTimestamp - defaultSeconds
 	else targetTimestamp = nowTimestamp + defaultSeconds
 	pausedDifference = 0
 }
@@ -148,23 +147,23 @@ function updateDisplay(targetTime) {
 	// Update both display (hh:mm:ss and miliseconds)
 	let nowTimestamp = Date.now()
 	if (targetTime !== undefined) {
-		if (countingUp) targetTimestamp = nowTimestamp - targetTime
+		if (countingUp.value) targetTimestamp = nowTimestamp - targetTime
 		else targetTimestamp = nowTimestamp + targetTime
 	}
-	const s = Math.abs(Date.now() - targetTimestamp) / 1000
-	const displayMs = Math.floor((s % 1) * 1000)
-	const displayS = Math.floor(s % 60)
-	const displayM = Math.floor(s/60) % 60
-	const displayH = Math.floor(s/3600) % 24
-	const displayD = Math.floor(s/86400)
-	let displayTemp = displayS.toString().padStart(2, '0')
-	displayTemp = displayM.toString().padStart(2, '0') + ':' + displayTemp
-	displayTemp = displayH.toString().padStart(2, '0') + ':' + displayTemp
-	if (displayD) displayTemp = displayD.toString().padStart(2, '0') + ':' + displayTemp
+	const time = Math.abs(Date.now() - targetTimestamp) / 1000
+	const numMs = Math.floor((time % 1) * 1000)
+	const numS = Math.floor(time % 60)
+	const numM = Math.floor(time/60) % 60
+	const numH = Math.floor(time/3600) % 24
+	const numD = Math.floor(time/86400)
+	let displayTemp = numS.toString().padStart(2, '0')
+	displayTemp = numM.toString().padStart(2, '0') + ':' + displayTemp
+	displayTemp = numH.toString().padStart(2, '0') + ':' + displayTemp
+	if (numD) displayTemp = numD.toString().padStart(2, '0') + ':' + displayTemp
 	display.value = displayTemp
-	displayMs.value = ("000" + displayMs).slice(-3)
-	if (!countingUp && defaultSeconds) {
-		percentage.value = s * 1000 / defaultSeconds
+	displayMs.value = ("000" + numMs).slice(-3)
+	if (!countingUp.value && defaultSeconds) {
+		percentage.value = time * 1000 / defaultSeconds
 	}
 	// console.log(display)
 }
@@ -182,7 +181,7 @@ async function rename() {
 
 function countup() {
 	// Switch to counting up
-	countingUp = true
+	countingUp.value = true
 	let nowTimestamp = Date.now()
 	let difference = Math.abs(targetTimestamp - nowTimestamp)
 	targetTimestamp = nowTimestamp - difference
@@ -191,8 +190,8 @@ function countup() {
 
 function countdown() {
 	// Switch to counting down
-	percentage = 0
-	countingUp = false
+	percentage.value = 0
+	countingUp.value = false
 	let nowTimestamp = Date.now()
 	let difference = Math.abs(targetTimestamp - nowTimestamp)
 	targetTimestamp = nowTimestamp + difference
