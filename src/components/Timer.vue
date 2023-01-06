@@ -46,7 +46,7 @@
 </template>
 
 <style>
-svg[style*="vertical-align:-0.125em"] {
+svg[style*="vertical-align"] {
 	display: inline;
 }
 </style>
