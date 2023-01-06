@@ -46,9 +46,9 @@
 </template>
 
 <style>
-	svg {
-		display: inline
-	}
+svg[style*="vertical-align:-0.125em"] {
+	display: inline;
+}
 </style>
 
 <script setup>
@@ -138,15 +138,20 @@ function reset() {
 	pausedDifference = 0
 }
 
+/**
+ * Remove the timer from parent component
+ */
 function remove() {
-	// Remove the timer from existence
 	emit('remove', props.id)
 }
 
+/**
+ * Update both display (hh:mm:ss and miliseconds)
+ * @param {number} targetTime 
+ */
 function updateDisplay(targetTime) {
-	// Update both display (hh:mm:ss and miliseconds)
 	let nowTimestamp = Date.now()
-	if (targetTime !== undefined) {
+	if (targetTime) {
 		if (countingUp.value) targetTimestamp = nowTimestamp - targetTime
 		else targetTimestamp = nowTimestamp + targetTime
 	}
@@ -168,6 +173,9 @@ function updateDisplay(targetTime) {
 	// console.log(display)
 }
 
+/**
+ * Change the title
+ */
 async function rename() {
 	// To change the title
 	let { value: title } = await Swal.fire({
@@ -188,8 +196,10 @@ function countup() {
 	// updateDisplay()
 }
 
+/**
+ * Switch timer to counting down
+ */
 function countdown() {
-	// Switch to counting down
 	percentage.value = 0
 	countingUp.value = false
 	let nowTimestamp = Date.now()
@@ -198,8 +208,10 @@ function countdown() {
 	// updateDisplay()
 }
 
+/**
+ * Change the timer's time
+ */
 async function retime() {
-	// To change the time
 	let { value: input } = await Swal.fire({
 		title: 'Enter the new time',
 		input: 'text',
