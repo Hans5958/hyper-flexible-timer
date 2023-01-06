@@ -1,5 +1,5 @@
 ---
-import Footer from "../components/Footer.vue"
+import Footer from "../components/Footer.astro"
 import Index from "../components/Index.vue"
 import Main from "../layout/Main.astro";
 ---
@@ -10,6 +10,6 @@ import Main from "../layout/Main.astro";
 >
 	<main class='bg-gradient-to-r from-cyan-500 to-blue-500 h-full min-h-screen w-full flex flex-col'>
 		<Index client:load />
-		<Footer client:idle />
+		<Footer />
 	</main>	
 </Main>
