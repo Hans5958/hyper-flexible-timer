@@ -151,7 +151,7 @@ function remove() {
  */
 function updateDisplay(targetTime) {
 	let nowTimestamp = Date.now()
-	if (targetTime) {
+	if (targetTime !== undefined) {
 		if (countingUp.value) targetTimestamp = nowTimestamp - targetTime
 		else targetTimestamp = nowTimestamp + targetTime
 	}
@@ -200,7 +200,9 @@ function countup() {
  * Switch timer to counting down
  */
 function countdown() {
-	percentage.value = 0
+	if (!countingUp.value && defaultSeconds) {
+		percentage.value = time * 1000 / defaultSeconds
+	}
 	countingUp.value = false
 	let nowTimestamp = Date.now()
 	let difference = Math.abs(targetTimestamp - nowTimestamp)
