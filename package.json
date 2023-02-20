@@ -23,7 +23,7 @@
     "@iconify/vue": "^4.0.2",
     "astro": "^1.9.1",
     "astro-icon": "^0.8.0",
-    "sweetalert2": "^11.6.16",
+    "sweetalert2": "^11.7.2",
     "tailwindcss": "^3.2.4",
     "vue": "^3.2.45"
   }
