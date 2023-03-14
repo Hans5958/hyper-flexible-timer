@@ -18,13 +18,13 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/tailwind": "^2.1.3",
-    "@astrojs/vue": "^1.2.2",
-    "@iconify/vue": "^4.0.2",
-    "astro": "^1.9.1",
+    "@astrojs/tailwind": "^3.1.1",
+    "@astrojs/vue": "^2.1.0",
+    "@iconify/vue": "^4.1.0",
+    "astro": "^2.1.3",
     "astro-icon": "^0.8.0",
-    "sweetalert2": "^11.6.16",
-    "tailwindcss": "^3.2.4",
-    "vue": "^3.2.45"
+    "sweetalert2": "^11.7.3",
+    "tailwindcss": "^3.2.7",
+    "vue": "^3.2.47"
   }
 }
