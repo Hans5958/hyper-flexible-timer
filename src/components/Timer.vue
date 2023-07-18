@@ -92,7 +92,7 @@ let displayTitle = ref('Timer'),
 	targetTimestamp = 0,
 	pausedDifference = 0,
 	isBlinking = false,
-	interval = () => {}
+	frameInterval = () => {}
 
 function start() {
 	let nowTimestamp = Date.now()
@@ -103,14 +103,16 @@ function start() {
 	}
 	if (countingUp.value) targetTimestamp = nowTimestamp - targetTime
 	else targetTimestamp = nowTimestamp + targetTime
-	interval = setInterval(() => {
+	frameInterval = () => {
 		if (!countingUp.value && targetTimestamp - Date.now() < 1) {
 			stop()
 			updateDisplay(0)
 			isBlinking = true
 			if (defaultSeconds === 0) countingUp.value = true
 		} else updateDisplay()
-	}, 10)
+		requestAnimationFrame(frameInterval)
+	}
+	frameInterval()
 	isStarted = true
 	isStopped = false
 	isBlinking = false
@@ -119,7 +121,7 @@ function start() {
 function pause() {
 	let nowTimestamp = Date.now()
 	pausedDifference = Math.abs(targetTimestamp - nowTimestamp)
-	clearInterval(interval)
+	frameInterval = () => {}
 	updateDisplay()
 	isStarted = false
 }
