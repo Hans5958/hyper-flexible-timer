@@ -152,12 +152,13 @@ function remove() {
  * @param {number} targetTime 
  */
 function updateDisplay(targetTime) {
+	if (isStopped) return
 	let nowTimestamp = Date.now()
-	if (targetTime !== undefined) {
+	if (targetTime) {
 		if (countingUp.value) targetTimestamp = nowTimestamp - targetTime
 		else targetTimestamp = nowTimestamp + targetTime
 	}
-	const time = Math.abs(Date.now() - targetTimestamp) / 1000
+	const time = Math.abs(nowTimestamp - targetTimestamp) / 1000
 	const numMs = Math.floor((time % 1) * 1000)
 	const numS = Math.floor(time % 60)
 	const numM = Math.floor(time/60) % 60
