@@ -1,5 +1,5 @@
 ---
-import { Icon } from 'astro-icon'
+import { Icon } from 'astro-icon/components'
 import { version } from '../vars'
 const year = new Date().getFullYear()
 ---
@@ -19,7 +19,7 @@ const year = new Date().getFullYear()
 </div>
 
 <style>
-svg[inline][astro-icon] {
+svg[inline][data-icon] {
 	width: 1em;
 	height: 1em;
 	vertical-align: -0.125em;
