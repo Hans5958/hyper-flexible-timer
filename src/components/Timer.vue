@@ -151,8 +151,8 @@ function remove() {
  * Update both display (hh:mm:ss and miliseconds)
  * @param {number} targetTime 
  */
-function updateDisplay(targetTime) {
-	if (isStopped) return
+function updateDisplay(targetTime, force=false) {
+	if (isStopped && !force) return
 	let nowTimestamp = Date.now()
 	if (targetTime) {
 		if (countingUp.value) targetTimestamp = nowTimestamp - targetTime
@@ -224,7 +224,6 @@ async function retime() {
 		showCancelButton: true,
 		inputValidator: (input) => {
 			let inputSecs = convertTimeFromString(input)
-			console.log(inputSecs)
 			if (Number.isNaN(Number(inputSecs))) {
 				return 'Enter a valid value!'
 			} else if (inputSecs < 0) {
@@ -236,7 +235,7 @@ async function retime() {
 	if (!input) return
 
 	defaultSeconds = convertTimeFromString(input) * 1000
-	updateDisplay(defaultSeconds)
+	updateDisplay(defaultSeconds, true)
 	if (pausedDifference) pausedDifference += defaultSeconds
 }
 
