@@ -1,11 +1,14 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig } from 'astro/config'
 
-// https://astro.build/config
-import vue from "@astrojs/vue";
-import tailwind from "@astrojs/tailwind";
-import icon from "astro-icon";
+import vue from "@astrojs/vue"
+import tailwindcss from '@tailwindcss/vite'
+import icon from "astro-icon"
 
 export default defineConfig({
-  integrations: [vue(), tailwind(), icon()],
-  base: '/hyper-flexible-timer'
-});
+	integrations: [vue(), icon()],
+	base: '/hyper-flexible-timer',
+
+	vite: {
+		plugins: [tailwindcss()],
+	},
+})
