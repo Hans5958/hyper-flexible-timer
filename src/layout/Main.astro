@@ -1,15 +1,40 @@
 ---
-const { title, description } = Astro.props
+let { title, description } = Astro.props
+import { SITE_AUTHOR, SITE_TITLE, SITE_TWITTER, SITE_MASTODON } from "../config.js"
+
+let titleDisplay: string
+
+if (title) {
+	title = SITE_TITLE
+	titleDisplay = SITE_TITLE
+} else {
+	titleDisplay = `${title} - ${SITE_TITLE}`
+}
 ---
 
 <html lang="en">
 	<head>
-		<title>{ title }</title>
-		<meta charset="utf-8">
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width,initial-scale=1">
-		<meta name="description" content={ description }>
-		<meta name="generator" content={ Astro.generator } />
+		<title>{titleDisplay}</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+		<meta name="description" content={description} />
+		<meta name="author" content={SITE_AUTHOR} />
+		<meta name="generator" content={Astro.generator} />
+
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={Astro.url} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:site_name" content={SITE_TITLE} />
+		<meta property="og:locale" content="en_US" />
+
+		<meta name="twitter:site" content={SITE_TWITTER} />
+		<meta name="twitter:creator" content={SITE_TWITTER} />
+		<meta name="twitter:url" content={Astro.url} />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+
+		<meta name="fediverse:creator" content={SITE_MASTODON} />
 	</head>
 	<body>
 		<slot />
